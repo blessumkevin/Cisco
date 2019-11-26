@@ -322,7 +322,7 @@
     </fields>
     <fields>
         <fullName>Test__c</fullName>
-        <description>Test Description</description>
+        <description>Test Description (Recommit)</description>
         <externalId>false</externalId>
         <label>Test</label>
         <required>false</required>
