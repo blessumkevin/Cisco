@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>Cisco_Custom_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cisco Custom Url</shortDescription>
+        <value>{!Environment.CISCO_URL}</value>
+    </labels>
+    <labels>
         <fullName>Felix_Label</fullName>
         <language>en_US</language>
         <protected>false</protected>
