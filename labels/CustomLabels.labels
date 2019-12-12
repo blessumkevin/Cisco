@@ -5,7 +5,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Cisco Custom Url</shortDescription>
-        <value>www.dev1.cisco.com</value>
+        <value>{!Environment.CISCO_URL}</value>
     </labels>
     <labels>
         <fullName>Felix_Label</fullName>
