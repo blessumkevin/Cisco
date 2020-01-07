@@ -5,13 +5,13 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Cisco Custom Url</shortDescription>
-        <value>{!Environment.CISCO_URL}</value>
+        <value>www.prod.cisco.com</value>
     </labels>
     <labels>
         <fullName>Felix_Label</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Felix Label</shortDescription>
-        <value>{!Environment.Felix}</value>
+        <value>https://final.salesforce.com</value>
     </labels>
 </CustomLabels>

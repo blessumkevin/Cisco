@@ -128,11 +128,14 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>User_Story_Record_Page_Unmanaged</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <formFactor>Large</formFactor>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -4685,6 +4688,32 @@
         <label>Work Manager Relations</label>
     </fieldSets>
     <fields>
+        <fullName>SCA_Score__c</fullName>
+        <description>This field is updated by a process that pastes the most recent SCA results.</description>
+        <externalId>false</externalId>
+        <label>SCA Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SCA_Violations__c</fullName>
+        <description>This field is updated by a process that pastes the most recent SCA results.</description>
+        <externalId>false</externalId>
+        <label>SCA Violations</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>copado__Acceptance_Criteria_Status__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
@@ -6139,16 +6168,9 @@ IMAGE(&quot;/img/samples/color_yellow.gif&quot;, &quot;white&quot;, 15,
         <fullName>copado__All</fullName>
         <columns>NAME</columns>
         <columns>copado__User_Story_Title__c</columns>
-        <columns>copado__userStory_Role__c</columns>
-        <columns>copado__userStory_need__c</columns>
-        <columns>copado__userStory_reason__c</columns>
-        <columns>copado__Story_Points_SFDC__c</columns>
-        <columns>copado__Story_Points_Other__c</columns>
+        <columns>copado__Org_Credential__c</columns>
         <columns>copado__Status__c</columns>
         <columns>copado__Project__c</columns>
-        <columns>copado__Epic__c</columns>
-        <columns>copado__Sprint__c</columns>
-        <columns>copado__Release__c</columns>
         <columns>LAST_UPDATE</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
@@ -7544,6 +7566,47 @@ IMAGE(&quot;/img/samples/color_yellow.gif&quot;, &quot;white&quot;, 15,
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <validationRules>
+        <fullName>Pull_Request_Approved</fullName>
+        <active>false</active>
+        <description>This enforces that a pull request for this User Story must first be approved before the User Story can be marked as &quot;Promote Change&quot; or &quot;Promote &amp; Deploy&quot;. The checkbox Pull Request Approved must equal true,</description>
+        <errorConditionFormula>AND( 
+OR( 
+AND( 
+PRIORVALUE(copado__Promote_Change__c) = false, 
+copado__Promote_Change__c = true 
+), 
+AND( 
+PRIORVALUE(copado__Promote_and_Deploy__c) = false, 
+copado__Promote_and_Deploy__c = true 
+) 
+), 
+ copado__Pull_Requests_Approved__c = false
+)</errorConditionFormula>
+        <errorMessage>A pull request must first be approved in order to promote this User Story.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Static_Code_Analysis_Results</fullName>
+        <active>false</active>
+        <description>This enforces any sort of conditions you may want on the Static Code Analysis results of a User Story (i.e. whether they have to be run and/or achieve certain results). What is written here is that the SCA Score cannot be blank or greater than zero.</description>
+        <errorConditionFormula>AND( 
+OR( 
+AND( 
+PRIORVALUE(copado__Promote_Change__c) = false, 
+copado__Promote_Change__c = true 
+), 
+AND( 
+PRIORVALUE(copado__Promote_and_Deploy__c) = false, 
+copado__Promote_and_Deploy__c = true 
+) 
+), 
+OR( 
+ISBLANK( SCA_Score__c ), 
+SCA_Score__c &gt; 0 
+) 
+)</errorConditionFormula>
+        <errorMessage>Static Code Analysis has either not been run or the SCA Score is too high.</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>copado__Cancellation_reason_required</fullName>
         <active>true</active>
         <errorConditionFormula>AND(
@@ -7555,7 +7618,7 @@ IMAGE(&quot;/img/samples/color_yellow.gif&quot;, &quot;white&quot;, 15,
     </validationRules>
     <validationRules>
         <fullName>copado__Promote_User_Story_Apex_validation</fullName>
-        <active>true</active>
+        <active>false</active>
         <description>If User Story has apex code, validate that the minimum code coverage has been met.</description>
         <errorConditionFormula>AND(
   copado__Has_Apex_Code__c = true,

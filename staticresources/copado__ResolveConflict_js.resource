@@ -216,6 +216,14 @@ var conversionFunc = conversionFunc || {},
 
                 var offsetAmount = 120;
                 attachmentInfo = !preFlag ? attach.Name.replace('AUTO ','').replace('RESOLVED ','').split(' ') : config.attachName.split('/');
+                //correction for the types which's label and name are not the same hence there might be empty spaces in the label exp:custom object, field, layout etc.
+                if(attachmentInfo.length > 2 && !preFlag){
+                    tempAttachments = attachmentInfo;
+                    attachmentInfo = [];
+                    attachmentInfo.push(tempAttachments[0]);
+                    attachmentInfo.push(tempAttachments.slice(1).join(' '));
+                }
+                console.log('attachmentInfo  ',attachmentInfo);
                 pMode = defineMode();
                 usName = attachmentInfo[0];
 
@@ -302,6 +310,7 @@ var conversionFunc = conversionFunc || {},
     },
     defineMode = function() {
         //last clause(after : ) used to be (attachmentInfo.length > 1 ? attachmentInfo[1].split('.')[0].toLowerCase() : attachmentInfo[0])
+        //attachmentInfo.length > 2 is for bundles which is in use on SelectChanges page via compare link
         var aType = attachmentInfo.length > 2 ? attachmentInfo[2].split('.')[1].toLowerCase() : (preFlag ? attachmentInfo[0] : attachmentInfo[1].split('/')[0].toLowerCase());
         if (aType == 'apexclass' || aType == 'apextrigger' || aType == 'classes' || aType == 'triggers') {
             return 'text/x-java';

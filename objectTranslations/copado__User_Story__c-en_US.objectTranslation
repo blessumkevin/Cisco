@@ -49,6 +49,14 @@
         <name>copado__Work_Manager_Relations</name>
     </fieldSets>
     <fields>
+        <label><!-- SCA Score --></label>
+        <name>SCA_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCA Violations --></label>
+        <name>SCA_Violations__c</name>
+    </fields>
+    <fields>
         <label><!-- Acceptance Criteria Status --></label>
         <name>copado__Acceptance_Criteria_Status__c</name>
         <picklistValues>
@@ -799,6 +807,14 @@
         <label><!-- User Story --></label>
         <name>copado__User_Story</name>
     </recordTypes>
+    <validationRules>
+        <errorMessage><!-- A pull request must first be approved in order to promote this User Story. --></errorMessage>
+        <name>Pull_Request_Approved</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Static Code Analysis has either not been run or the SCA Score is too high. --></errorMessage>
+        <name>Static_Code_Analysis_Results</name>
+    </validationRules>
     <validationRules>
         <errorMessage><!-- A cancellation reason must be given. --></errorMessage>
         <name>copado__Cancellation_reason_required</name>

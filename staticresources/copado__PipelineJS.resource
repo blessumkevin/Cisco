@@ -119,20 +119,7 @@
             var heightFactor = 0;
 
             columnsNumber = firstColumnEnvNumber > secondColumnEnvNumber ? firstColumnEnvNumber : secondColumnEnvNumber;
-
-            if (columnsNumber <= 10) {
-                heightFactor = 0.5;
-            } else if (columnsNumber > 10 && columnsNumber <= 30) {
-                heightFactor = 0.6;
-            } else if (columnsNumber > 30 && columnsNumber <= 50) {
-                heightFactor = 0.7;
-            } else if (columnsNumber > 50 && columnsNumber <= 65) {
-                heightFactor = 0.8;
-            } else if (columnsNumber > 65 && columnsNumber <= 80) {
-                heightFactor = 0.9;
-            } else if (columnsNumber > 80) {
-                heightFactor = 1;
-            }
+            heightFactor = columnsNumber <= 10 ? 0.7 : 0.9;
 
             return heightFactor;
         }
@@ -166,9 +153,6 @@
                     top: Math.round(yM)
                 });
             });
-
-
-
         }
 
         init();
